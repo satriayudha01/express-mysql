@@ -20,12 +20,21 @@ const getAllusers = async (req, res) => {
 }
 
 // controller untuk mengatur method request POST - CREATE NEW USER
-const createNewUser = (req, res) => {
-    console.log(req.body);
-    res.json({
-        message: 'CREATE new user success',
-        data: req.body
-    })
+const createNewUser = async (req, res) => {
+    const {body} = req;
+    
+    try {
+        await UsersModel.createNewUser(body);
+        res.json({
+            message: 'CREATE new user success',
+            data: body
+        })
+    } catch (error) {
+        res.status(500).json ({
+            massage: 'Server Error',
+            serverMessage: error,
+        })        
+    }
 }
 
 // controller untuk mengatur method request UPDATE - UPDATE USER BERDASARKAN ID
