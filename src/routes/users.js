@@ -11,10 +11,10 @@ router.post('/',UserController.createNewUser);
 router.get('/', UserController.getAllusers);
 
 // UPDATE - PATCH - butuh idUser sebagai primaryKey nilai yg ingin diubah
-router.patch('/:idUser', UserController.updateUser);
+router.patch('/:idUsers', UserController.updateUser);
 
 // DELETE - DELETE - butuh idUser sebagai primaryKey nilai yg ingin dihapus
-router.delete('/:idUser', UserController.deleteUser);
+router.delete('/:idUsers', UserController.deleteUser);
 
 
 module.exports = router;

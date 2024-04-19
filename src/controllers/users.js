@@ -35,14 +35,14 @@ const createNewUser = async (req, res) => {
 
 // controller untuk mengatur method request UPDATE - UPDATE USER BERDASARKAN ID
 const updateUser = async (req, res) => {
-    const {idUser} = req.params;
+    const {idUsers} = req.params;
     const {body} = req;
     try {
-        await UsersModel.updateUser(body, idUser);
+        await UsersModel.updateUser(body, idUsers);
         res.json({
             message: 'UPDATE user success',
             data: {
-                idUser: idUser,
+                idUsers: idUsers,
                 ...body
             },
         });
@@ -55,23 +55,27 @@ const updateUser = async (req, res) => {
 }
 
 // controller untuk mengatur method request DELETE - DELETE USER BERDASARKAN ID
-const deleteUser = (req, res) => {
-    const {idUser} = req.params;
-    res.json({
-        message: 'DELETE user success',
-        data: {
-            id: idUser,
-            name: "Satria Yudha",
-            email: "satriayudha01@gmail.com",
-            address: "Depok"
-        }
-    })
+const deleteUser = async (req, res) => {
+    const {idUsers} = req.params;
+    try {
+        await UsersModel.deleteUser(idUsers);
+        res.json({
+            message: 'DELETE user success',
+            data: `Data user dengan id ${idUsers} berhasil dihapus`
+        })
+    } catch (error) {
+        res.status(500).json ({
+            massage: 'Server Error',
+            serverMessage: error,
+        })
+    }
 }
 
 module.exports = {
     getAllusers,
     createNewUser,
     updateUser,
-    deleteUser
+    deleteUser,
 }
+
 
