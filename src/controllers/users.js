@@ -30,21 +30,28 @@ const createNewUser = async (req, res) => {
             data: body
         })
     } catch (error) {
-        res.status(500).json ({
-            massage: 'Server Error',
-            serverMessage: error,
-        })        
     }
 }
 
 // controller untuk mengatur method request UPDATE - UPDATE USER BERDASARKAN ID
-const updateUser = (req, res) => {
+const updateUser = async (req, res) => {
     const {idUser} = req.params;
-    console.log('idUser : ', idUser);
-    res.json({
-        message: 'UPDATE user success',
-        data: req.body,
-    });
+    const {body} = req;
+    try {
+        await UsersModel.updateUser(body, idUser);
+        res.json({
+            message: 'UPDATE user success',
+            data: {
+                idUser: idUser,
+                ...body
+            },
+        });
+    } catch (error) {
+        res.status(500).json ({
+            massage: 'Server Error',
+            serverMessage: error,
+        })          
+    }
 }
 
 // controller untuk mengatur method request DELETE - DELETE USER BERDASARKAN ID
