@@ -8,6 +8,7 @@ const app = express(); // create server
 
 app.use(middlewareLogRequest); 
 app.use(express.json()); // middleware mengizinkan reques body berupa json
+app.use('/assets', express.static('public/images')); // folder public mejadi static, maka user dapat mengaksesnya cukup memanggil file yg ada didalam folder public
  
 app.use('/users', usersRoutes); // grouping untuk path /users dengan mengimport usersRoutes
 
